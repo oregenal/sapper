@@ -1,3 +1,3 @@
 # Sapper
 
-Sapper game. Writen in C using SDL2.
+Sapper game. Written in C using SDL2.
