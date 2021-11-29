@@ -24,12 +24,31 @@ void render_bomb_cell(SDL_Renderer *renderer, int i)
 	SDL_RenderFillRect(renderer, &rect);
 }
 
+void render_marked_cell(SDL_Renderer *renderer, int i)
+{
+	SDL_Rect rect = {
+		.x = i % COLUMNS * CELL_SIZE + 5,
+		.y = i / COLUMNS * CELL_SIZE + 5,
+		.w = CELL_SIZE - 10,
+		.h = CELL_SIZE - 10
+	};
+	SDL_SetRenderDrawColor(renderer, 0, 255, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderDrawRect(renderer, &rect);
+	SDL_RenderFillRect(renderer, &rect);
+}
+
 void game_render(SDL_Renderer *renderer, const game_t *game)
 {
 	render_greed(renderer);
 
 	for(int i = 0; i < COLUMNS * ROWS; ++i) {
 		switch(game->field[i]) {
+			case MARKED:
+				render_marked_cell(renderer, i);
+				break;
+			case (MARKED | CLOSED_BOMB_CELL):
+				render_marked_cell(renderer, i);
+				break;
 			case CLOSED_CELL:
 				break;
 			case CLOSED_BOMB_CELL:

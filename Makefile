@@ -14,7 +14,7 @@ OBJS=$(patsubst $(SRCDIR)/%.h, $(OBJDIR)/%.o, $(HDRS))
 default:$(BIN)
 
 $(OBJDIR):
-	mkdir $@
+	mkdir -p $@
 
 $(OBJDIR)/%.o:$(SRCDIR)/%.c $(SRCDIR)/%.h | $(OBJDIR)
 	$(CC) $(CFLAGS) -c -o $@ $<

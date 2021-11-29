@@ -1,23 +1,24 @@
 #include "logic.h"
 
-void mark_cell(SDL_MouseButtonEvent *button) {
-	int x = button->x / CELL_SIZE;
-	int y = button->y / CELL_SIZE;
-	printf("Mark cell: {%d,%d} ass minen.\n", x, y);
+void mark_cell(game_t *game, int x, int y) {
+	game->field[x + y * COLUMNS] ^= MARKED;
 }
 
-void open_cell(SDL_MouseButtonEvent *button) {
-	int x = button->x / CELL_SIZE;
-	int y = button->y / CELL_SIZE;
-	printf("Open {%d,%d} cell.\n", x, y);
+void open_cell(game_t *game, int x, int y) {
+	if(game->field[x + y * COLUMNS] == CLOSED_BOMB_CELL) {
+	printf("BOOM!! In {%d,%d} cell.\n", x, y);
+	}
 }
 
 void clic_on_cell(game_t *game, SDL_MouseButtonEvent *button)
 {
+	int x = button->x / CELL_SIZE;
+	int y = button->y / CELL_SIZE;
+
 	if(button->button == SDL_BUTTON_LEFT) {
-		open_cell(button);
+		open_cell(game, x, y);
 	} else if(button->button == SDL_BUTTON_RIGHT) {
-		mark_cell(button);
+		mark_cell(game, x, y);
 	}
 }
 

@@ -3,11 +3,14 @@
 
 #include <SDL2/SDL.h>
 
-#define CELL_SIZE 50
-#define COLUMNS 10
-#define ROWS 10
+#define CELL_SIZE 25
+#define COLUMNS 30
+#define ROWS 30
 #define SCREEN_WIDTH CELL_SIZE * COLUMNS
 #define SCREEN_HEIGHT CELL_SIZE * ROWS
+
+#define MARKED 0x80 //10000000b
+#define MARK_MASK 0x7f //01111111b
 
 enum state {
 	RUNING_STATE = 0,
@@ -18,10 +21,8 @@ enum state {
 
 enum field {
 	CLOSED_CELL = 0,
-	MARKED_CELL,
 	OPENED_CELL,
 	CLOSED_BOMB_CELL,
-	MARKED_BOMB_CELL,
 	OPENED_BOMB_CELL
 };
 
