@@ -1,7 +1,7 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 #define CELL_SIZE 25
 #define COLUMNS 30
