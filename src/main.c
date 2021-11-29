@@ -30,9 +30,8 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
-	game_t game = {
-		.state = RUNING_STATE
-	};
+	game_t game;
+	randomize_field(&game);
 
 	SDL_Event e;
 	while(game.state != QUIT_STATE) {

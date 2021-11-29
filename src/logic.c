@@ -20,3 +20,14 @@ void clic_on_cell(game_t *game, SDL_MouseButtonEvent *button)
 		mark_cell(button);
 	}
 }
+
+void randomize_field(game_t *game)
+{
+	unsigned int randseed = time(NULL);
+	srand(randseed);
+
+	for(int i = 0; i < COLUMNS * ROWS; ++i) {
+		int res = rand() % 2;
+		game->field[i] = res < 1 ? CLOSED_CELL : CLOSED_BOMB_CELL;
+	}
+}

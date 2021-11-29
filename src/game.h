@@ -16,6 +16,15 @@ enum state {
 	QUIT_STATE
 };
 
+enum field {
+	CLOSED_CELL = 0,
+	MARKED_CELL,
+	OPENED_CELL,
+	CLOSED_BOMB_CELL,
+	MARKED_BOMB_CELL,
+	OPENED_BOMB_CELL
+};
+
 typedef struct {
 	int field[COLUMNS * ROWS];
 	int state;
