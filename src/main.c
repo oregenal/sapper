@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
+#include "game.h"
 
 int main(void)
 {
@@ -30,6 +29,8 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
+	game_t state;
+
 	SDL_Event e;
 	int quit = 0;
 	while(!quit) {
@@ -44,6 +45,7 @@ int main(void)
 
 		SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
 		SDL_RenderClear(renderer);
+		game_render(renderer, &state);
 		SDL_RenderPresent(renderer);
 	}
 
