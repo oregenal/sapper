@@ -39,11 +39,15 @@ void render_marked_cell(SDL_Renderer *renderer, int i)
 
 void render_open_cell(SDL_Renderer *renderer, int i)
 {
-	int x = i % COLUMNS * CELL_SIZE + CELL_SIZE / 2;
-	int y = i / COLUMNS * CELL_SIZE + CELL_SIZE / 2;
-
-	SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
-	SDL_RenderDrawPoint(renderer, x, y);
+	SDL_Rect rect = {
+		.x = i % COLUMNS * CELL_SIZE + 1,
+		.y = i / COLUMNS * CELL_SIZE + 1,
+		.w = CELL_SIZE - 2,
+		.h = CELL_SIZE - 2
+	};
+	SDL_SetRenderDrawColor(renderer, 191, 191, 191, SDL_ALPHA_OPAQUE);
+	SDL_RenderDrawRect(renderer, &rect);
+	SDL_RenderFillRect(renderer, &rect);
 }
 
 void game_render(SDL_Renderer *renderer, const game_t *game)
