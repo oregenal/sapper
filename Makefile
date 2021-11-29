@@ -1,6 +1,6 @@
 CC=gcc
-CFLAGS=-Wall -Werror -std=c11 -pedantic -ggdb
-LIBS=-lSDL2
+CFLAGS=-Wall -Werror -std=c11 -pedantic -ggdb `pkg-config --cflags sdl2`
+LIBS=`pkg-config --libs sdl2`
 
 BIN=sapper
 SRCDIR=src
