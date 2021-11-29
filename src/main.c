@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 
 #include "game.h"
+#include "logic.h"
 
 int main(void)
 {
@@ -12,8 +13,8 @@ int main(void)
 
 	SDL_Window *window = SDL_CreateWindow("sapper", SDL_WINDOWPOS_UNDEFINED,
 											SDL_WINDOWPOS_UNDEFINED, 
-											SCREEN_WIDTH, 
-											SCREEN_HEIGHT, 
+											SCREEN_WIDTH + 1, 
+											SCREEN_HEIGHT + 1, 
 											SDL_WINDOW_SHOWN);
 	if(window == NULL) {
 		SDL_Log("SDL_CeateWindow fail: %s.\n" , SDL_GetError());
@@ -29,23 +30,27 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
-	game_t state;
+	game_t game = {
+		.state = RUNING_STATE
+	};
 
 	SDL_Event e;
-	int quit = 0;
-	while(!quit) {
+	while(game.state != QUIT_STATE) {
 		while(SDL_PollEvent(&e)) {
 			switch(e.type) {
 				case SDL_QUIT:
-					quit = 1;
+					game.state = QUIT_STATE;
+					break;
+				case SDL_MOUSEBUTTONDOWN:
+					clic_on_cell(&game, &e.button);
 					break;
 				default: {}
 			}
 		}
 
-		SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
+		SDL_SetRenderDrawColor(renderer, 56, 53, 53, SDL_ALPHA_OPAQUE);
 		SDL_RenderClear(renderer);
-		game_render(renderer, &state);
+		game_render(renderer, &game);
 		SDL_RenderPresent(renderer);
 	}
 

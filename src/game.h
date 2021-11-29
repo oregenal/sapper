@@ -9,11 +9,18 @@
 #define SCREEN_WIDTH CELL_SIZE * COLUMNS
 #define SCREEN_HEIGHT CELL_SIZE * ROWS
 
+enum state {
+	RUNING_STATE = 0,
+	GAME_OVER_STATE,
+	WIN_STATE,
+	QUIT_STATE
+};
+
 typedef struct {
 	int field[COLUMNS * ROWS];
 	int state;
 } game_t;
 
-void game_render(SDL_Renderer *, game_t *);
+void game_render(SDL_Renderer *, const game_t *);
 
 #endif //GAME_H_
