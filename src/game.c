@@ -37,6 +37,15 @@ void render_marked_cell(SDL_Renderer *renderer, int i)
 	SDL_RenderFillRect(renderer, &rect);
 }
 
+void render_open_cell(SDL_Renderer *renderer, int i)
+{
+	int x = i % COLUMNS * CELL_SIZE + CELL_SIZE / 2;
+	int y = i / COLUMNS * CELL_SIZE + CELL_SIZE / 2;
+
+	SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderDrawPoint(renderer, x, y);
+}
+
 void game_render(SDL_Renderer *renderer, const game_t *game)
 {
 	render_greed(renderer);
@@ -53,6 +62,9 @@ void game_render(SDL_Renderer *renderer, const game_t *game)
 				break;
 			case CLOSED_BOMB_CELL:
 				render_bomb_cell(renderer, i);
+				break;
+			case OPENED_CELL:
+				render_open_cell(renderer, i);
 				break;
 			default: {}
 		}

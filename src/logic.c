@@ -1,12 +1,15 @@
 #include "logic.h"
 
 void mark_cell(game_t *game, int x, int y) {
-	game->field[x + y * COLUMNS] ^= MARKED;
+	if(game->field[x + y * COLUMNS] != OPENED_CELL)
+		game->field[x + y * COLUMNS] ^= MARKED;
 }
 
 void open_cell(game_t *game, int x, int y) {
 	if(game->field[x + y * COLUMNS] == CLOSED_BOMB_CELL) {
 	printf("BOOM!! In {%d,%d} cell.\n", x, y);
+	} else if (game->field[x + y * COLUMNS] == CLOSED_CELL){
+		game->field[x + y * COLUMNS] = OPENED_CELL;
 	}
 }
 
