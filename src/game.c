@@ -74,9 +74,21 @@ static void draw_number(SDL_Renderer *renderer, int i, SDL_Point number[], int s
 	SDL_RenderDrawLines(renderer, result, size);
 }
 
-static void render_greed(SDL_Renderer *renderer)
+static void render_greed(SDL_Renderer *renderer, const game_t *game)
 {
-	SDL_SetRenderDrawColor(renderer, 171, 171, 171, SDL_ALPHA_OPAQUE);
+	switch(game->state) {
+		case RUNING_STATE:
+			SDL_SetRenderDrawColor(renderer, 171, 171, 171, SDL_ALPHA_OPAQUE);
+			break;
+		case WIN_STATE:
+			SDL_SetRenderDrawColor(renderer, 0, 255, 0, SDL_ALPHA_OPAQUE);
+			break;
+		case GAME_OVER_STATE:
+			SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
+			break;
+		default: {}
+	}
+
 	for(int i = 0; i < SCREEN_WIDTH + 1; i += CELL_SIZE) {
 		SDL_RenderDrawLine(renderer, i, 0, i, SCREEN_HEIGHT);
 	}
@@ -188,7 +200,7 @@ static void render_open_cell(SDL_Renderer *renderer, int i, const game_t *game)
 
 void game_render(SDL_Renderer *renderer, const game_t *game)
 {
-	render_greed(renderer);
+	render_greed(renderer, game);
 
 	for(int i = 0; i < COLUMNS * ROWS; ++i) {
 		switch(game->field[i]) {

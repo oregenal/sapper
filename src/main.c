@@ -32,6 +32,7 @@ int main(void)
 
 	game_t game;
 	randomize_field(&game);
+	game.state = RUNING_STATE;
 
 	SDL_Event e;
 	while(game.state != QUIT_STATE) {
