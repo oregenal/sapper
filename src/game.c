@@ -1,5 +1,79 @@
 #include "game.h"
 
+SDL_Point one[] = {
+	{  CELL_SIZE / 2, 5 },
+	{  CELL_SIZE / 2, CELL_SIZE - 5 }
+};
+
+SDL_Point two[] = {
+	{ 5, 5 },
+	{ CELL_SIZE - 5, 5 },
+	{ CELL_SIZE - 5, CELL_SIZE / 2 },
+	{ 5, CELL_SIZE - 5 },
+	{ CELL_SIZE - 5, CELL_SIZE - 5 }
+};
+
+SDL_Point three[] = {
+	{ 5, 5 },
+	{ CELL_SIZE - 5, 5 },
+	{ CELL_SIZE / 2, CELL_SIZE / 2 },
+	{ CELL_SIZE - 5, CELL_SIZE - 5 },
+	{ 5, CELL_SIZE - 5 }
+};
+
+SDL_Point four[] = {
+	{ 5, 5 },
+	{ 5, CELL_SIZE / 2 },
+	{ CELL_SIZE - 5 , CELL_SIZE / 2 },
+	{ CELL_SIZE - 5, 5 },
+	{ CELL_SIZE - 5, CELL_SIZE - 5 }
+};
+
+SDL_Point five[] = {
+	{ CELL_SIZE - 5, 5 },
+	{ 5, 5 },
+	{ 5 , CELL_SIZE / 2 },
+	{ CELL_SIZE - 5 , CELL_SIZE / 2 },
+	{ CELL_SIZE - 5, CELL_SIZE - 5 },
+	{ 5, CELL_SIZE - 5 }
+};
+
+SDL_Point six[] = {
+	{ CELL_SIZE - 5, 5 },
+	{ 5, 5 },
+	{ 5 , CELL_SIZE - 5 },
+	{ CELL_SIZE - 5 , CELL_SIZE - 5 },
+	{ CELL_SIZE - 5, CELL_SIZE / 2 },
+	{ 5, CELL_SIZE / 2 }
+};
+
+SDL_Point seven[] = {
+	{  5 , 5 },
+	{  CELL_SIZE - 5, 5 },
+	{  CELL_SIZE / 2, CELL_SIZE - 5 }
+};
+
+SDL_Point eight[] = {
+	{ CELL_SIZE - 5, CELL_SIZE / 2 },
+	{ CELL_SIZE - 5, 5 },
+	{ 5, 5 },
+	{ 5 , CELL_SIZE - 5 },
+	{ CELL_SIZE - 5 , CELL_SIZE - 5 },
+	{ CELL_SIZE - 5, CELL_SIZE / 2 },
+	{ 5, CELL_SIZE / 2 }
+};
+
+void draw_number(SDL_Renderer *renderer, int i, SDL_Point number[], int size)
+{
+	SDL_Point result[size];
+	for(int j = 0; j < size; ++j) {
+		result[j].x = number[j].x + i % COLUMNS * CELL_SIZE;
+		result[j].y = number[j].y + i / COLUMNS * CELL_SIZE;
+	}
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderDrawLines(renderer, result, size);
+}
+
 static void render_greed(SDL_Renderer *renderer)
 {
 	SDL_SetRenderDrawColor(renderer, 171, 171, 171, SDL_ALPHA_OPAQUE);
@@ -48,6 +122,8 @@ void render_open_cell(SDL_Renderer *renderer, int i)
 	SDL_SetRenderDrawColor(renderer, 191, 191, 191, SDL_ALPHA_OPAQUE);
 	SDL_RenderDrawRect(renderer, &rect);
 	SDL_RenderFillRect(renderer, &rect);
+
+	draw_number(renderer, i, eight, sizeof(eight) / sizeof(eight[0]));
 }
 
 void game_render(SDL_Renderer *renderer, const game_t *game)
