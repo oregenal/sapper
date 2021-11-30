@@ -63,7 +63,7 @@ SDL_Point eight[] = {
 	{ 5, CELL_SIZE / 2 }
 };
 
-void draw_number(SDL_Renderer *renderer, int i, SDL_Point number[], int size)
+static void draw_number(SDL_Renderer *renderer, int i, SDL_Point number[], int size)
 {
 	SDL_Point result[size];
 	for(int j = 0; j < size; ++j) {
@@ -85,7 +85,7 @@ static void render_greed(SDL_Renderer *renderer)
 	}
 }
 
-void render_bomb_cell(SDL_Renderer *renderer, int i)
+static void render_bomb_cell(SDL_Renderer *renderer, int i)
 {
 	SDL_Rect rect = {
 		.x = i % COLUMNS * CELL_SIZE + 5,
@@ -98,7 +98,7 @@ void render_bomb_cell(SDL_Renderer *renderer, int i)
 	SDL_RenderFillRect(renderer, &rect);
 }
 
-void render_marked_cell(SDL_Renderer *renderer, int i)
+static void render_marked_cell(SDL_Renderer *renderer, int i)
 {
 	SDL_Rect rect = {
 		.x = i % COLUMNS * CELL_SIZE + 5,
@@ -111,7 +111,7 @@ void render_marked_cell(SDL_Renderer *renderer, int i)
 	SDL_RenderFillRect(renderer, &rect);
 }
 
-void render_open_cell(SDL_Renderer *renderer, int i, const game_t *game)
+static void render_open_cell(SDL_Renderer *renderer, int i, const game_t *game)
 {
 	SDL_Rect rect = {
 		.x = i % COLUMNS * CELL_SIZE + 1,
@@ -126,9 +126,29 @@ void render_open_cell(SDL_Renderer *renderer, int i, const game_t *game)
 	int neibours = 0;
 	int x = i % COLUMNS;
 	int y = i / COLUMNS;
+	int colmin = 0, colmax = 3, rowmin = 0, rowmax = 3;
+	switch (y) {
+		case 0:
+			rowmin = 1;
+			break;
+		case ROWS - 1:
+			rowmax = 2;
+			break;
+		default: {}
+	}
 
-	for(int col = 0; col < 3; ++col) {
-		for(int row = 0; row < 3; ++row) {
+	switch (x) {
+		case 0:
+			colmin = 1;
+			break;
+		case COLUMNS - 1:
+			colmax = 2;
+			break;
+		default: {}
+	}
+
+	for(int col = colmin; col < colmax; ++col) {
+		for(int row = rowmin; row < rowmax; ++row) {
 			int cell_status = game->field[(x - 1 + col) + (y - 1 + row) * COLUMNS];
 			if(cell_status == CLOSED_BOMB_CELL || (MARK_MASK & cell_status) == CLOSED_BOMB_CELL)
 				++neibours;
@@ -184,6 +204,9 @@ void game_render(SDL_Renderer *renderer, const game_t *game)
 				break;
 			case OPENED_CELL:
 				render_open_cell(renderer, i, game);
+				break;
+			case OPENED_BOMB_CELL:
+				render_bomb_cell(renderer, i);
 				break;
 			default: {}
 		}
