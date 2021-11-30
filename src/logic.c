@@ -31,7 +31,7 @@ void randomize_field(game_t *game)
 	srand(randseed);
 
 	for(int i = 0; i < COLUMNS * ROWS; ++i) {
-		int res = rand() % 3;
-		game->field[i] = res < 2 ? CLOSED_CELL : CLOSED_BOMB_CELL;
+		int res = rand() % 5;
+		game->field[i] = res < 4 ? CLOSED_CELL : CLOSED_BOMB_CELL;
 	}
 }
