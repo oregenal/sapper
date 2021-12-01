@@ -11,6 +11,9 @@ static void open_cell(game_t *game, int x, int y) {
 	switch(game->field[x + y * COLUMNS]) {
 		case CLOSED_CELL:
 			game->field[x + y * COLUMNS] = OPENED_CELL;
+			--bomb_counter;
+			if(bomb_counter == 0)
+				game->state = WIN_STATE;
 			break;
 		case CLOSED_BOMB_CELL:
 			game->state = GAME_OVER_STATE;
