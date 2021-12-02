@@ -162,7 +162,9 @@ static void render_open_cell(SDL_Renderer *renderer, int i, const game_t *game)
 	for(int col = colmin; col < colmax; ++col) {
 		for(int row = rowmin; row < rowmax; ++row) {
 			int cell_status = game->field[(x - 1 + col) + (y - 1 + row) * COLUMNS];
-			if(cell_status == CLOSED_BOMB_CELL || (MARK_MASK & cell_status) == CLOSED_BOMB_CELL)
+			if(cell_status == CLOSED_BOMB_CELL 
+					|| (MARK_MASK & cell_status) == CLOSED_BOMB_CELL 
+					|| cell_status == OPENED_BOMB_CELL)
 				++neibours;
 		}
 	}

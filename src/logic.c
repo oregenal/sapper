@@ -16,6 +16,7 @@ static void open_cell(game_t *game, int x, int y) {
 				game->state = WIN_STATE;
 			break;
 		case CLOSED_BOMB_CELL:
+			game->field[x + y * COLUMNS] = OPENED_BOMB_CELL;
 			game->state = GAME_OVER_STATE;
 			break;
 		default: {}
