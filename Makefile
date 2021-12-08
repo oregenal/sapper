@@ -9,7 +9,7 @@ OBJDIR=obj
 HDRS=$(wildcard $(SRCDIR)/*.h)
 OBJS=$(patsubst $(SRCDIR)/%.h, $(OBJDIR)/%.o, $(HDRS))
 
-.PHONY:default
+.PHONY:default clean
 
 default:$(BIN)
 
@@ -23,4 +23,4 @@ $(BIN):$(SRCDIR)/main.c $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
 clean:
-	rm -rf obj/ $(BIN)
+	rm -rf $(OBJDIR) $(BIN)

@@ -2,6 +2,14 @@
 
 int bomb_counter;
 
+static void show_bomb(game_t *game) {
+	for(int i = 0; i < ROWS * COLUMNS; ++i) {
+		if((game->field[i] & MARK_MASK) == CLOSED_BOMB_CELL) {
+			game->field[i] = OPENED_BOMB_CELL;
+		}
+	}
+}
+
 static void mark_cell(game_t *game, int x, int y) {
 	if(game->field[x + y * COLUMNS] != OPENED_CELL)
 		game->field[x + y * COLUMNS] ^= MARKED;
@@ -17,6 +25,7 @@ static void open_cell(game_t *game, int x, int y) {
 			break;
 		case CLOSED_BOMB_CELL:
 			game->field[x + y * COLUMNS] = OPENED_BOMB_CELL;
+			show_bomb(game);
 			game->state = GAME_OVER_STATE;
 			break;
 		default: {}
