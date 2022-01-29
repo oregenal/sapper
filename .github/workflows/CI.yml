@@ -16,6 +16,6 @@ jobs:
     - name: install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install libsdl2
+        sudo apt-get install libsdl2-dev
     - name: build
       run: make
