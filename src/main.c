@@ -41,6 +41,10 @@ int main(void)
 				case SDL_QUIT:
 					game.state = QUIT_STATE;
 					break;
+				case SDL_KEYUP:
+					if (e.key.keysym.sym == SDLK_q)
+						game.state = QUIT_STATE;
+					break;
 				case SDL_MOUSEBUTTONDOWN:
 					clic_on_cell(&game, &e.button);
 					break;
